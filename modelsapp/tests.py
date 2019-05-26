@@ -1,0 +1,19 @@
+import django, os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "DangDang.settings")
+django.setup()
+from modelsapp.models import TBooks
+from datetime import datetime
+import time
+
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+# TBooks.objects.create(book_name="家庭系统排列", book_picture="images/22876893-1_l.jpg", market_price=38.00, discount_price=19.00,shelf_time=datetime.now(), book_sales=1000, book_cate="当代小说", customer_rating=100, book_author="李海东",press="天津人民出版社", pub_time=datetime.now(), edition=1, printing_time=datetime.now(), impression= "第一版" )
+#

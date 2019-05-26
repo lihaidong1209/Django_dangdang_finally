@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>订单详情页</title>
+    <script src="{% static 'js/jquery.1.8.3.min.js' %}"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <link rel="shortcut icon" href="images/favicon.ico?v=20160901" type="image/x-icon">
+    <link href="{% static 'css/shopping_cart_new.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/footer_150526.css' %}" rel="stylesheet" type="text/css"/>
+    <script src="{% static 'js/jquery.1.8.3.min.js' %}" type="text/javascript"></script>
+    <script>
+
+        function quit_login() {
+            spans = document.getElementById("nickname")
+            $.ajax({
+                type: "get",
+                url: "{% url 'userapp:del_cookie' %}",
+                success: function (msg) {
+                    result = msg["result"];
+                    if (result === 1) {
+                        spans.innerHTML = "<span class=\"hi hi_none\">欢迎光临当当，请</span>\n" +
+                            "<a href=\"{% url 'userapp:login' %}?flag=4\" class=\"login_link\">[登录]</a>\n" +
+                            "<a href=\"{% url 'userapp:register' %}?flag=4\">[免费注册]</a>"
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+
+<body style="padding-bottom:82px">
+
+<link href="{% static 'css/header_960_150611.css' %}" rel="stylesheet" type="text/css">
+<script src="{% static 'js/pagetop2015_0827.js' %}" charset="gb2312" type="text/javascript"></script>
+
+<div id="hd">
+    <div id="tools">
+        <div class="tools">
+            <div class="ddnewhead_operate" dd_name="顶链接">
+
+                <div class="ddnewhead_welcome" display="none;">
+                    <span id="nickname">
+                        <span id="nickname">
+                        {% if request.session.re_name %}
+                            <span class="hi hi_none">欢迎光临当当</span>
+                            <span class="hi hi_none" style="color: #ff1e0a">[{{ request.session.re_name }}]</span>
+                            <a href="javascript:void(0)" class="login_link" id="quit_login" onclick="quit_login()">[退出账号]</a>
+                        {% else %}
+                            <span class="hi hi_none">欢迎光临当当，请</span>
+                            <a href="{% url 'userapp:login' %}?flag=4" class="login_link">[登录]</a>
+                            <a href="{% url 'userapp:register' %}?flag=4">[免费注册]</a>
+                        {% endif %}
+                    </span>
+                    </span>
+                    <div class="tel_pop" style="display:none" id="__ddnav_sjdd"
+                         onmouseover="showgaoji('a_phonechannel','__ddnav_sjdd');"
+                         onmouseout="hideotherchannel('a_phonechannel','__ddnav_sjdd');">
+                        <a target="_blank" href="http://t.dangdang.com/20130220_ydmr" class="title"><i
+                                class="icon_tel"></i>手机当当</a><i class="title_shadow"></i>
+                        <ul class="tel_pop_box">
+                            <li><a href="http://t.dangdang.com/20130220_ydmr" dd_name="手机二维码"><span>当当手机客户端</span><img
+                                    src="http://img3.ddimg.cn/00363/doc/erweima2.png"><span class="text">随手查订单<br>随时享优惠</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="new_head_znx" id="znx_content" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+    <div id="header_end"></div>
+    <!--CreateDate  2016-09-28 11:30:01--></div>
+<form action="http://search.dangdang.com/search.aspx" id="bootpagetopSearch" name="bootpagetopSearch"
+      method="GET"></form>
+<script type="text/javascript">var nick_num = 0;
+initHeaderOperate();</script>
+<script type="text/javascript" src="http://orderb.dangdang.com/queryunpaid?callback=Unpaid_Data"></script>
+<div class="shoppingcart_wrapper" id="ad_cpt_11850">
+    <div>
+        <a href="http://a.dangdang.com/tjump.php?q=ddo84XQOf357bOs8tXGg5%2F%2F0oVoDImt3DFWsMqu7ZMSVsfUMeOQJueASNiMLjq%2FdrXMLCKnVfyKEahteAh1ih%2ByKYrKGzhvL20LVbDzObRambBA0YPpivy5hR5foQ4Rt%2BTB"
+           target="_blank" rel="nofollow"><img src="http://img62.ddimg.cn/2017/1/11/2017011111344969879.jpg"></a></div>
+</div>
+<div class="logo_line">
+    <div class="w960">
+        <div class="shopping_procedure01 shopping_procedure "><span>我的购物车</span><span class="current">填写订单</span><span>完成订单</span>
+        </div>
+        <div class="logo"><a href="{% url 'orderapp:car' %}"><img src="{% static 'images/bz_logo_car.jpg' %}" alt=""></a></div>
+    </div>
+</div>
+<div class="indent_con">
+    <div class="shdz">
+        <h3>订单相关信息</h3>
+        <ul class="shdz_con">
+                <h3>订单号: <span style="color: #ff0ef2">[{{ order_number }}]</span> </h3>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                    <tr style="height:30px; line-height:30px;">
+                        <th width="10%">商品图片</th>
+                        <th width="30%">商品名称</th>
+                        <th width="15%">出版社</th>
+                        <th width=8%">当当价</th>
+                        <th width="8%">市场价</th>
+                        <th width="9%">数量</th>
+                        <th width="9%">小计</th>
+                        <th width="11%">操作</th>
+                    </tr>
+                    {% for cart_settlement in cart_settlements %}
+                    <tr>
+                        <td align="center">
+                            <a title=" {{ cart_settlement.book.book_name }} " class="pic"
+                               href="{% url 'indexapp:book_details' %}?id={{ cart_settlement.book.id }}" target="_blank">
+                                <img src="{% static cart_settlement.book.book_picture %}" alt=" {{ cart_settlement.book.id }} "></a>
+                        </td>
+                        <td align="center">{{ cart_settlement.book.book_name }} | {{ cart_settlement.book.book_author }} | {{ cart_settlement.book.pub_time|date:'Y年' }}全新力作</td>
+                        <td align="center">{{ cart_settlement.book.press }}</td>
+                        <td align="center">¥:{{ cart_settlement.book.discount_price }}</td>
+                        <td align="center">¥:{{ cart_settlement.book.market_price }}</td>
+                        <td align="center">{{ cart_settlement.amount }}</td>
+                        <td align="center">¥:{% widthratio cart_settlement.book.discount_price 1 cart_settlement.amount %}.00</td>
+                        <td align="center"><button><a href="#">放回购物车</a></td></button>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2">
+
+                            <button><a href=" {% url 'indexapp:book_list' %}" target="_blank" style="color: red">继续选择商品>></a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button><a href=" {% url 'orderapp:car' %}" target="_blank" style="color: red">查看购物车>></a></button>
+
+                        </td>
+                        <td colspan="2"><strong>商品数量：</strong>共选择<span style="color: red">[&nbsp;&nbsp;{{ number }}&nbsp;&nbsp;]</span>件商品</td>
+                        <td></td>
+                        <td></td>
+                        <td class="table_zj" colspan="3"><strong>小计总额：</strong><em>￥：{{ total_prices }}.00</em></td>
+                    </tr>
+                    </tbody>
+                </table>
+            <div class="balance"><p>商品金额：￥：{{ total_prices }}.00</p>
+                <p>已节省金额：￥：{{ save_prices }}.00</p>
+                <p class="yfze">应付总额（含运费）：<em>￥：{{ total_prices }}.00</em></p>
+                <p><a href="{% url 'orderapp:indent_ok' %}">提交订单</a></p></div>
+            <div class="shdz">
+            </div>
+        </ul>
+    </div>
+</div>
+<div id="footer">
+    <div class="footer">
+        <div class="footer_nav_box">
+            <div class="footer_copyright"><span>Copyright (C) 当当网 2004-2014, All Rights Reserved</span><a
+                    href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001051000098" target="_blank"
+                    class="footer_img" rel="nofollow"><img src="http://img4.dangdang.com/bottom/validate.gif"></a><span><a
+                    href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP证041189号</a></span><span>出版物经营许可证&nbsp;新出发京批字第直0673号</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="foot_tip_ad">广告</div>
+<style>
+    .foot_tip_ad {
+        width: 40px;
+        height: 40px;
+        font: 12px/40px "simsun";
+        text-align: center;
+        color: #fff;
+        background-color: #474747;
+        position: fixed;
+        right: 0;
+        bottom: 10px;
+        _position: absolute;
+        _bottom: auto;
+        _top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));
+    }
+</style>
+
+
+</body>
+</html>
