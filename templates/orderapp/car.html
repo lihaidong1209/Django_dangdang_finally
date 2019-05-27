@@ -166,12 +166,13 @@
         {#=====================================添加恢复区==========================================#}
 
         function revcoer_books(id) {
+            table_re = document.getElementById("add_book")
             table_add_re = document.getElementById("recover")
             tbody2 = document.getElementById(id + 'all')
-            tbody2.innerText = ""
             all_price = document.getElementById("payAmount")
             all_prices = document.getElementById("total")
             favor = document.getElementById("totalFavor")
+            table_re.removeChild(tbody2);
             $.ajax({
                 type: "GET",
                 url: "{% url 'orderapp:add_book_recover' %}",
@@ -251,10 +252,11 @@
         function add_revcoer_books(id) {
             table_re = document.getElementById("add_book")
             tbody2 = document.getElementById(id + 'rec')
-            tbody2.innerText = ""
+            table_add_re = document.getElementById("recover")
             all_price = document.getElementById("payAmount")
             all_prices = document.getElementById("total")
             favor = document.getElementById("totalFavor")
+            table_add_re.removeChild(tbody2)
             $.ajax({
                 type: "GET",
                 url: "{% url 'orderapp:recover_book_cart' %}",
