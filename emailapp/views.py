@@ -3,15 +3,18 @@ import time
 
 from django.core.mail import EmailMultiAlternatives
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
-
-from DangDang import settings
+from django.shortcuts import render
 from emailapp.models import Email
 from datetime import datetime
 # Create your views here.
 
 
 def make_confirm_string(re_name):
+    '''
+    利用hash和时间盐生成随机的验证码
+    :param re_name: 用户昵称
+    :return:
+    '''
     now_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     h = hashlib.md5()
     re_name += now_time
@@ -19,6 +22,12 @@ def make_confirm_string(re_name):
     return h.hexdigest()
 
 def post_email(username,code):
+    '''
+    邮件发送函数
+    :param username:  用户名
+    :param code:   验证码
+    :return:
+    '''
     subject =  '来自的注册激活邮件'
     from_email = 'lihaidong1209@sina.com'
     to = '{}'.format(username)
@@ -30,6 +39,11 @@ def post_email(username,code):
 
 
 def register_verify(request):
+    '''
+    接受注册表单信息，并生成验证码，保存到临时数据库
+    :param request:
+    :return:
+    '''
     flag = request.GET.get("flag")
     request.session["flag"] = flag
     username = request.POST.get("username")
@@ -49,6 +63,11 @@ def register_verify(request):
 
 # 手机验证码验证
 def changeCaptcha_phone(request):
+    '''
+    接受ajax请求，手机验证码是否正确判断
+    :param request:
+    :return:
+    '''
     time.sleep(2)
     captcha = request.POST.get("txt_vcode")
     code_phone = request.session.get("code_phone")

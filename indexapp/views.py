@@ -5,6 +5,11 @@ from django.shortcuts import render
 from modelsapp.models import TCategory,TBooks
 # 主页
 def index(request):
+    '''
+    主页渲染函数，其中包括类别，书籍推荐排序等
+    :param request:
+    :return:
+    '''
     # 拿到类别，按照类别ID分类
     one_cate = TCategory.objects.filter(parent_id=0)
     two_cate = TCategory.objects.filter(parent_id__gt=0)
@@ -21,6 +26,11 @@ def index(request):
 
 # 书籍详情
 def book_details(request):
+    '''
+    书籍详情页面，根据书籍的ID渲染不同的书
+    :param request:
+    :return:
+    '''
     # 书籍ID
     book_id = request.GET.get("id")
     if not book_id:
@@ -43,6 +53,11 @@ def book_details(request):
 
 # 书籍列表
 def book_list(request):
+    '''
+    书籍分类列表，包括不同类别书籍数量，分页，首页，末页，输入跳转等
+    :param request:
+    :return:
+    '''
     # 分页，类别ID
     number = request.GET.get("number")
     one_id = request.GET.get("one_id")

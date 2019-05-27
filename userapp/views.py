@@ -8,12 +8,24 @@ from emailapp.models import Email
 # Create your views here.
 # 注册
 def register(request):
+    '''
+    注册页面渲染函数
+    :param request:
+    :return:
+    '''
     flag = request.GET.get("flag")
     if not flag:
         flag = 1
     return render(request, 'userapp/register.html', {"flag": flag})
 
 def registerlogic(request):
+    '''
+    注册逻辑函数，
+    在点击邮件或者输入手机号的验证码正确后调用，判断验证码是否一致，然后根据flag渲染不同页面
+    需要勾选同意条款
+    :param request:
+    :return:
+    '''
     # 获得页面标签
     flag = request.session.get("flag")
     print(flag)
@@ -52,6 +64,11 @@ def registerlogic(request):
 
 # 登录
 def login(request):
+    '''
+    登录页面函数
+    :param request:
+    :return:
+    '''
     flag = request.GET.get("flag")
     if not flag:
         flag = "1"
@@ -78,6 +95,11 @@ def login(request):
     return render(request,"userapp/login.html",{"flag": flag})
 
 def loginlogic(request):
+    '''
+    登录逻辑函数，若果直接登录 没有flag，则要求直接跳到首页
+    :param request:
+    :return:
+    '''
     flag = request.GET.get("flag")
     if not flag:
         flag = "1"
@@ -125,6 +147,11 @@ def loginlogic(request):
 
 # 注册成功
 def register_ok(request):
+    '''
+    注册成功后渲染函数，包含自动购物按钮也自动跳转
+    :param request:
+    :return:
+    '''
     flag = request.GET.get("flag")
     username = request.GET.get("username")
     return render(request, 'userapp/register ok.html', {"flag": flag, "username": username})
@@ -135,6 +162,11 @@ def register_ok(request):
 #   1  注册异步验证
 # 邮箱/手机号验证
 def email(request):
+    '''
+    邮箱与手机号是否可用、是否合法的验证
+    :param request:
+    :return:
+    '''
     time.sleep(2)
     username = request.POST.get("username")
     result = TUser.objects.filter(username=username)
@@ -156,6 +188,11 @@ def email(request):
 
 # 昵称验证
 def re_name(request):
+    '''
+    昵称的验证
+    :param request:
+    :return:
+    '''
     time.sleep(2)
     txt_re_username = request.POST.get("txt_re_username")
     result = TUser.objects.filter(username=txt_re_username)
@@ -170,6 +207,11 @@ def re_name(request):
 
 # 密码验证
 def re_password(request):
+    '''
+    密码要求验证
+    :param request:
+    :return:
+    '''
     time.sleep(2)
     txt_password = request.POST.get("txt_password")
     if txt_password:
@@ -183,6 +225,11 @@ def re_password(request):
 
 # 验证码验证
 def changeCaptcha(request):
+    '''
+    验证码是否正确的验证
+    :param request:
+    :return:
+    '''
     time.sleep(2)
     captcha = request.POST.get("txt_vcode")
     code = request.session.get("number")
@@ -198,6 +245,11 @@ def changeCaptcha(request):
 # 2       登录异步验证
 
 def login_email(request):
+    '''
+    登录邮箱、手机号验证
+    :param request:
+    :return:
+    '''
     time.sleep(2)
     username = request.POST.get("username")
     result = TUser.objects.filter(username=username)
@@ -215,6 +267,11 @@ def login_email(request):
 # 退出
 
 def del_cookie(request):
+    '''
+    点击退出后删除session,包括用户状态，添加的临时购物车状态及恢复区session
+    :param request:
+    :return:
+    '''
     del request.session["re_name"]
     del request.session["stats"]
     cart = request.session.get("cart")

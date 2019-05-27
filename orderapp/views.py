@@ -7,6 +7,12 @@ import random ,string
 from datetime import datetime
 # 购物车
 def car(request):
+    '''
+    购物车页面，将添加的商品存入session中，判断用户是否登录，若登录则找到用户曾今需要购买的书籍
+    若没有登录则判断session,根据session渲染
+    :param request:
+    :return:
+    '''
     cart = request.session.get("cart")
     cart1 = request.session.get("cart1")
     book_ones,total_prices,save_prices ,book_twos,order_query= "","","","",""
@@ -57,6 +63,12 @@ def car(request):
 
 # 收货地址
 def indent(request):
+    '''
+    填写地址页面，需要先判断购物车是否有书籍存在，若没有则要求添加，
+    若用户未登录，则强制登录或者注册，完成后自动跳转到此页面
+    :param request:
+    :return:
+    '''
     username = request.session.get("stats")
     cart = request.session.get("cart")
     if username:
@@ -109,6 +121,11 @@ def index_detail(request):
 
 # 购买成功
 def indent_ok(request):
+    '''
+    购买成功页面，将购买的商品价格和数量渲染，3秒自动返回
+    :param request:
+    :return:
+    '''
     try:
         with transaction.atomic():
             order_number = request.session.get("order_number")
@@ -129,10 +146,15 @@ def indent_ok(request):
 
 # 增加一本书籍
 def add_book(request):
+    '''
+    详情页面函数，
+    当增加一本书时，调用该函数，判断session，若没有则创建，更改session后一定要重新保存
+    :param request:
+    :return:
+    '''
     book_id = request.GET.get("id")
     book_model = TBooks.objects.filter(id=book_id)[0]
     cart = request.session.get("cart")
-    # print(cart)   #<cartapp.cart.Cart object at 0x0000024C8F71CE48>
     if cart:
         cart.add_book_to_cart(book_model)
     else:
@@ -142,6 +164,12 @@ def add_book(request):
     return JsonResponse({"result": 1})
 # 增加多本书籍
 def add_books(request):
+    '''
+    详情页面函数
+    增加多本书时调用该函数，需要将书籍的数量转换为int，
+    :param request:
+    :return:
+    '''
     book_id = request.GET.get("id")
     amount = int(request.GET.get("amount"))
     book_model = TBooks.objects.filter(id=book_id)[0]
@@ -157,6 +185,12 @@ def add_books(request):
 
 # 增加一本书籍
 def update_cart_add(request):
+    '''
+    购物车页面函数
+    增加一本书时调用此函数
+    :param request:
+    :return:
+    '''
     book_id = request.GET.get("id")
     book_model = TBooks.objects.filter(id=book_id)[0]
     cart = request.session.get("cart")
@@ -170,6 +204,12 @@ def update_cart_add(request):
 
 # 减少一本书籍
 def update_cart_red(request):
+    '''
+    购物车页面函数
+    减少一本书时调用该函数
+    :param request:
+    :return:
+    '''
     book_id = request.GET.get("id")
     book_model = TBooks.objects.filter(id=book_id)[0]
     cart = request.session.get("cart")
@@ -181,6 +221,12 @@ def update_cart_red(request):
     return JsonResponse({"result": 1, "total_prices": total_prices, "save_prices": save_prices})
 # 更新多本书籍
 def update_cart_books(request):
+    '''
+    购物车页面函数
+    修改多本书籍时调用该函数，同样需要数量转int
+    :param request:
+    :return:
+    '''
     book_id = request.GET.get("id")
     amount = int(request.GET.get("amount"))
     book_model = TBooks.objects.filter(id=book_id)[0]
@@ -194,6 +240,12 @@ def update_cart_books(request):
 
 # 删除书籍
 def delete_cart_book(request):
+    '''
+    购物车页面函数----删除书籍
+    删除书籍时调用函数
+    :param request:
+    :return:
+    '''
     book_id = request.GET.get("id")
     book_model = TBooks.objects.filter(id=book_id)[0]
     cart = request.session.get("cart")
@@ -206,6 +258,11 @@ def delete_cart_book(request):
 
 # 添加到恢复区
 def add_book_recover(request):
+    '''
+    购物车页面函数--移入书籍到恢复区
+    :param request:
+    :return:
+    '''
     book_id = request.GET.get("id")
     book_model = TBooks.objects.filter(id=book_id)[0]
     cart = request.session.get("cart")   #购物车
@@ -234,6 +291,12 @@ def add_book_recover(request):
 
 # 添加到购物车
 def recover_book_cart(request):
+    '''
+    购物车页面函数
+    将恢复区的书籍重新添加到购物车
+    :param request:
+    :return:
+    '''
     book_id = request.GET.get("id")
     book_model = TBooks.objects.filter(id=book_id)[0]
     cart = request.session.get("cart")   #购物车
@@ -262,6 +325,12 @@ def recover_book_cart(request):
 
 #判断购物车是否存在
 def cart_settlement(request):
+    '''
+    购物车页面函数
+    在点击结算时，判断购物车是否为空
+    :param request:
+    :return:
+    '''
     cart = request.session.get("cart")
     if cart:
         return JsonResponse({"result": 1})
@@ -269,19 +338,33 @@ def cart_settlement(request):
 
 
 # 获取用户地址
-
 def select(address1):
+    '''
+    Json不可转换对象转化函数，下面主函数调用
+    :param address1:
+    :return:
+    '''
     if isinstance(address1,TAddress):
         return {"name": address1.name, "address": address1.address, "code": address1.code,
          "phone": address1.phone, "mob_phone": address1.mob_phone }
 
 def select_address(request):
+    '''
+    选择地址函数，select调用，如果用户有地址，则将其渲染到页面
+    :param request:
+    :return:
+    '''
     address_id = request.POST.get("id")
     address_detail = TAddress.objects.filter(id=address_id)
     return JsonResponse({"user_address":list(address_detail)},safe=True,json_dumps_params={"default": select})
 
 # 填写或者选择地址
 def add_user_address(request):
+    '''
+    用户填写新地址，如果用户填写的新地址则保存，然后跳转，若为旧地址则直接跳转
+    :param request:
+    :return:
+    '''
     name = request.GET.get("username")
     user_address = request.GET.get("user_address")
     code = request.GET.get("code")
@@ -304,6 +387,11 @@ def add_user_address(request):
 
 # 结算后清除函数
 def delete_information(request):
+    '''
+    购物完成后选择跳转到购物车页面，在自动跳转时删除所有的保存信息，包括订单详情表
+    :param request:
+    :return:
+    '''
     order_number = request.session.get("order_number")
     order_id = TOrder.objects.filter(order_num=order_number)[0].id
     TOrderitem.objects.filter(order_id=order_id).delete()
@@ -319,6 +407,11 @@ def delete_information(request):
 
 
 def order_detail(request):
+    '''
+    订单信息函数，当用户点击我的订单时调用，可查看用户所有购买记录
+    :param request:
+    :return:
+    '''
     username = request.session.get("stats")
     if username:
         username = request.session.get("stats")

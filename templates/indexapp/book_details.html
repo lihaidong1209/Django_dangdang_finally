@@ -27,6 +27,7 @@
             id.style.display = "none";
         }
 
+        {#登录退出#}
         function quit_login() {
             spans = document.getElementById("nickname")
             $.ajax({
@@ -43,6 +44,7 @@
             })
         }
 
+        {#增加多本书#}
         function add_books() {
             amount = $("#buy_num").val()
             $.ajax({
@@ -60,19 +62,29 @@
             })
         }
 
+        {#点击增加按钮#}
         function adds() {
             if (parseInt($("#buy_num").val()) < 100) {
                 $("#buy_num").val(parseInt($("#buy_num").val()) + 1)
-            }else {
-                $("#buy_num").val(1)
             }
         }
 
+        {#点击减少按钮#}
         function reds() {
             if (parseInt($("#buy_num").val()) > 1) {
                 $("#buy_num").val(parseInt($("#buy_num").val()) - 1)
             }
         }
+
+    {#填写数量#}
+        function select_number() {
+            if (parseInt($("#buy_num").val()) < 100 && parseInt($("#buy_num").val()) > 1) {
+                $("#buy_num").val(parseInt($("#buy_num").val()))
+            }else{
+               $("#buy_num").val(1)
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -749,7 +761,7 @@
                     <!-- 按钮区 -->
                     <div class="buy_box clearfix">
                         <div class="num">
-                            <input id="buy_num" class="text" value="1" type="text">
+                            <input id="buy_num" class="text" value="1" type="text" onblur="select_number()">
                             <a href="javascript:;" class="num_add" id="num_add" dd_name="数量加" onclick="adds()"></a> <a
                                 href="javascript:;" class="num_del num_disabled" id="num_del" dd_name="数量减"
                                 onclick="reds()"></a></div>
