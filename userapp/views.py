@@ -28,7 +28,6 @@ def registerlogic(request):
     '''
     # 获得页面标签
     flag = request.session.get("flag")
-    print(flag)
     # 如果没有默认为首页
     if not flag:
         flag = "1"
@@ -155,7 +154,6 @@ def register_ok(request):
     flag = request.GET.get("flag")
     username = request.GET.get("username")
     return render(request, 'userapp/register ok.html', {"flag": flag, "username": username})
-
 
 # ========================异步验证======================
 
